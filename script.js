@@ -209,6 +209,21 @@ let gameInterval;
 let insectInterval;
 let gameCompleted = false;
 
+// =========================
+// 🔊 GAME SOUNDS
+// =========================
+const bgMusic = new Audio("sounds/bg-sound.mp3");
+const comboSound = new Audio("sounds/combo.mp3");
+const errorSound = new Audio("sounds/error.mp3");
+const popSound = new Audio("sounds/pop.mp3");
+
+bgMusic.loop = true;
+bgMusic.volume = 0.3;
+
+comboSound.volume = 0.5;
+errorSound.volume = 0.5;
+popSound.volume = 0.4;
+
 // DAILY HIGH SCORE
 const today = new Date().toDateString();
 let savedDate = localStorage.getItem("scoreDate");
@@ -269,6 +284,10 @@ function startGame(mode) {
   time = 30;
   combo = 0;
 
+  // 🔊 START BG MUSIC
+  bgMusic.currentTime = 0;
+  bgMusic.play();
+
   gameScreen.innerHTML = `
     <div class="game-ui">
 
@@ -325,18 +344,42 @@ function startGame(mode) {
     el.style.top = y + "px";
 
     el.onclick = () => {
-      if (isFake) {
-        score--;
-        combo = 0;
-      } else {
-        combo++;
-        score += mode === "easy" ? 1 : mode === "medium" ? 1 + combo : 2 + combo;
-      }
 
-      scoreEl.textContent = score;
-      comboEl.textContent = combo;
-      el.remove();
-    };
+  // 🔊 POP SOUND
+  popSound.currentTime = 0;
+  popSound.play();
+
+  if (isFake) {
+
+    score--;
+    combo = 0;
+
+    // 🔊 ERROR SOUND (HARD MODE ONLY)
+    errorSound.currentTime = 0;
+    errorSound.play();
+
+  } else {
+
+    combo++;
+
+    score += mode === "easy"
+      ? 1
+      : mode === "medium"
+      ? 1 + combo
+      : 2 + combo;
+
+    // 🔊 COMBO SOUND
+    if (combo >= 2) {
+      comboSound.currentTime = 0;
+      comboSound.play();
+    }
+  }
+
+  scoreEl.textContent = score;
+  comboEl.textContent = combo;
+
+  el.remove();
+};
 
     gameArea.appendChild(el);
     setTimeout(() => el.remove(), insectLife);
@@ -354,6 +397,10 @@ function startGame(mode) {
 // 🎮 END GAME
 // =========================
 function endGame() {
+
+   bgMusic.pause();
+   bgMusic.currentTime = 0;
+
   clearInterval(gameInterval);
   clearInterval(insectInterval);
 
@@ -370,8 +417,12 @@ function endGame() {
 // 🎮 CLOSE GAME
 // =========================
 function closeGame() {
+  
   gameScreen.classList.remove("active");
   gameScreen.innerHTML = "";
+
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
 
   clearInterval(gameInterval);
   clearInterval(insectInterval);
@@ -658,4 +709,6 @@ function proceedToAward() {
     launchConfetti();
   }, 200);
 }
+
+
 
