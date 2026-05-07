@@ -596,10 +596,7 @@ function checkAnswer(selected, btn) {
 }
 
 function endQuiz() {
-
-  localStorage.setItem("triviaDone", "true");
-
-  gameCompleted = true;
+  gameCompleted = true; // para counted din quiz
 
   gameScreen.innerHTML = `
     <div class="menu-panel">
@@ -712,6 +709,7 @@ function proceedToAward() {
     launchConfetti();
   }, 200);
 }
+
 
 
 
