@@ -596,7 +596,10 @@ function checkAnswer(selected, btn) {
 }
 
 function endQuiz() {
-  gameCompleted = true; // para counted din quiz
+
+  localStorage.setItem("triviaDone", "true");
+
+  gameCompleted = true;
 
   gameScreen.innerHTML = `
     <div class="menu-panel">
