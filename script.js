@@ -12,9 +12,8 @@ const panelHabitat = document.getElementById("panel-habitat");
 const panelDiet = document.getElementById("panel-diet");
 const panelBehavior = document.getElementById("panel-behavior");
 
-const closeBtn = document.querySelector(".close-btn");
-const backBtn = document.querySelector(".back-btn");
-
+const closeBtn = document.querySelector(".close-btn") || null;
+const backBtn = document.querySelector(".back-btn") || null;
 
 // =========================
 // 🔊 VOICE FUNCTION
