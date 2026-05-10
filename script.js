@@ -276,6 +276,7 @@ function openGameMenu() {
     </div>
   `;
 
+  gameScreen.classList.remove("game-hidden");
   gameScreen.classList.add("active");
 }
 
