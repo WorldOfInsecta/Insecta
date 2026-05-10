@@ -12,8 +12,9 @@ const panelHabitat = document.getElementById("panel-habitat");
 const panelDiet = document.getElementById("panel-diet");
 const panelBehavior = document.getElementById("panel-behavior");
 
-const closeBtn = document.querySelector(".close-btn") || null;
-const backBtn = document.querySelector(".back-btn") || null;
+const closeBtn = document.querySelector(".close-btn");
+const backBtn = document.querySelector(".back-btn");
+
 
 // =========================
 // 🔊 VOICE FUNCTION
@@ -56,27 +57,23 @@ cards.forEach((card, index) => {
 // =========================
 // OPEN MODAL
 // =========================
-if (cards.length > 0 && modal) {
+cards.forEach(card => {
+  card.addEventListener("click", () => {
 
-  cards.forEach(card => {
-    card.addEventListener("click", () => {
+    const data = card.dataset;
 
-      const data = card.dataset;
+    panelTitle.textContent = data.name || "Insect Name";
+    panelImg.src = data.full || data.img || "";
 
-      if (panelTitle) panelTitle.textContent = data.name || "Insect Name";
-      if (panelImg) panelImg.src = data.full || data.img || "";
+    panelLatin.textContent = data.latin || "Scientific Name";
+    panelHabitat.textContent = data.habitat || "Unknown";
+    panelDiet.textContent = data.diet || "Unknown";
+    panelBehavior.textContent = data.behavior || "Unknown";
 
-      if (panelLatin) panelLatin.textContent = data.latin || "Scientific Name";
-      if (panelHabitat) panelHabitat.textContent = data.habitat || "Unknown";
-      if (panelDiet) panelDiet.textContent = data.diet || "Unknown";
-      if (panelBehavior) panelBehavior.textContent = data.behavior || "Unknown";
-
-      modal.classList.add("active");
-      document.body.classList.add("modal-open");
-    });
+    modal.classList.add("active");
+    document.body.classList.add("modal-open");
   });
-
-};
+});
 
 
 // =========================
@@ -276,7 +273,6 @@ function openGameMenu() {
     </div>
   `;
 
-  gameScreen.classList.remove("game-hidden");
   gameScreen.classList.add("active");
 }
 
@@ -656,36 +652,37 @@ function checkCompletion() {
 }
 
 function showCertificate(type) {
-
-  let title = "";
-  let subtitle = "";
+  let message = "";
 
   if (type === "FULL") {
-    title = "🏆 INSECT MASTER";
-    subtitle = "You completed the trivia and game challenges!";
+    message = "🏆 INSECT MASTER!";
   } else {
-    title = "🪲 INSECT EXPLORER";
-    subtitle = "You completed the trivia challenge!";
+    message = "🎓 INSECT EXPLORER!";
   }
 
-  gameScreen.innerHTML = `
-    <div class="completion-panel">
+  const cert = document.createElement("div");
+  cert.className = "certificate-popup";
 
-      <h1>${title}</h1>
+  cert.innerHTML = `
+    <div class="cert-box">
 
-      <p>${subtitle}</p>
+      <button class="close-btn small" onclick="this.parentElement.parentElement.remove()">✖</button>
 
-      <div class="completion-badge">🐞</div>
+      <h1 class="cert-title">${message}</h1>
+      <p class="cert-sub">Thank you for exploring the Insect Exhibit.</p>
 
-      <div class="completion-actions">
-        <button onclick="closeGame()">Close</button>
-      </div>
+      <div class="cert-badge">🐞</div>
+
+      <button class="cert-btn" onclick="this.parentElement.parentElement.remove()">
+        Close
+      </button>
 
     </div>
   `;
 
-  gameScreen.classList.remove("game-hidden");
-  gameScreen.classList.add("active");
+  document.body.appendChild(cert);
+
+  launchConfetti();
 }
 
 // 🎉 CONFETTI
@@ -712,3 +709,5 @@ function proceedToAward() {
     launchConfetti();
   }, 200);
 }
+
+
