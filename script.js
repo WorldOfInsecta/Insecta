@@ -709,7 +709,3 @@ function proceedToAward() {
     launchConfetti();
   }, 200);
 }
-
-
-
-
