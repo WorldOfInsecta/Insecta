@@ -1010,24 +1010,28 @@ body::before {
 ================================= */
 #game-screen {
   position: fixed;
-  inset: 0;
-  z-index: 9999;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100vh;
 
   display: none;
 
   justify-content: center;
   align-items: center;
 
-  background:
-    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
-    url('images/bf-forest.jpg') center/cover no-repeat;
+  background: rgba(0,0,0,0.65);
 
-  overflow: hidden;
+  z-index: 9999;
 }
 
-/* SHOW GAME */
 #game-screen.active {
   display: flex;
+}
+
+.game-hidden {
+  display: none;
 }
 
 
