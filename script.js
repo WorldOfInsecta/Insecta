@@ -57,23 +57,27 @@ cards.forEach((card, index) => {
 // =========================
 // OPEN MODAL
 // =========================
-cards.forEach(card => {
-  card.addEventListener("click", () => {
+if (cards.length > 0 && modal) {
 
-    const data = card.dataset;
+  cards.forEach(card => {
+    card.addEventListener("click", () => {
 
-    panelTitle.textContent = data.name || "Insect Name";
-    panelImg.src = data.full || data.img || "";
+      const data = card.dataset;
 
-    panelLatin.textContent = data.latin || "Scientific Name";
-    panelHabitat.textContent = data.habitat || "Unknown";
-    panelDiet.textContent = data.diet || "Unknown";
-    panelBehavior.textContent = data.behavior || "Unknown";
+      if (panelTitle) panelTitle.textContent = data.name || "Insect Name";
+      if (panelImg) panelImg.src = data.full || data.img || "";
 
-    modal.classList.add("active");
-    document.body.classList.add("modal-open");
+      if (panelLatin) panelLatin.textContent = data.latin || "Scientific Name";
+      if (panelHabitat) panelHabitat.textContent = data.habitat || "Unknown";
+      if (panelDiet) panelDiet.textContent = data.diet || "Unknown";
+      if (panelBehavior) panelBehavior.textContent = data.behavior || "Unknown";
+
+      modal.classList.add("active");
+      document.body.classList.add("modal-open");
+    });
   });
-});
+
+};
 
 
 // =========================
