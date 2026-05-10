@@ -907,7 +907,7 @@ body::before {
   position: fixed;
   inset: 0;
 
-  background: url("images/bf-forest.jpg");
+  background: url("images/bg-forest.jpg");
   opacity: 0.05;
 
   animation: moveBg 40s linear infinite;
