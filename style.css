@@ -1504,4 +1504,54 @@ body::before {
 }
 
 
+.completion-panel {
+  background: linear-gradient(145deg, #e6d3a3, #c9a66b);
+
+  padding: 40px;
+  border-radius: 20px;
+
+  text-align: center;
+
+  max-width: 420px;
+  width: 90%;
+
+  color: #2b2115;
+
+  animation: popIn 0.4s ease;
+}
+
+.completion-panel h1 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+.completion-panel p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.completion-badge {
+  font-size: 60px;
+  margin: 20px 0;
+
+  animation: bounce 1s infinite alternate;
+}
+
+.completion-actions button {
+  padding: 12px 22px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #2b5d34;
+  color: white;
+
+  cursor: pointer;
+}
+
+.completion-actions button:hover {
+  background: #3c7a47;
+}
+
+
 
