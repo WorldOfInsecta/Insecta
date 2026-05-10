@@ -656,37 +656,36 @@ function checkCompletion() {
 }
 
 function showCertificate(type) {
-  let message = "";
+
+  let title = "";
+  let subtitle = "";
 
   if (type === "FULL") {
-    message = "🏆 INSECT MASTER!";
+    title = "🏆 INSECT MASTER";
+    subtitle = "You completed the trivia and game challenges!";
   } else {
-    message = "🎓 INSECT EXPLORER!";
+    title = "🪲 INSECT EXPLORER";
+    subtitle = "You completed the trivia challenge!";
   }
 
-  const cert = document.createElement("div");
-  cert.className = "certificate-popup";
+  gameScreen.innerHTML = `
+    <div class="completion-panel">
 
-  cert.innerHTML = `
-    <div class="cert-box">
+      <h1>${title}</h1>
 
-      <button class="close-btn small" onclick="this.parentElement.parentElement.remove()">✖</button>
+      <p>${subtitle}</p>
 
-      <h1 class="cert-title">${message}</h1>
-      <p class="cert-sub">Thank you for exploring the Insect Exhibit.</p>
+      <div class="completion-badge">🐞</div>
 
-      <div class="cert-badge">🐞</div>
-
-      <button class="cert-btn" onclick="this.parentElement.parentElement.remove()">
-        Close
-      </button>
+      <div class="completion-actions">
+        <button onclick="closeGame()">Close</button>
+      </div>
 
     </div>
   `;
 
-  document.body.appendChild(cert);
-
-  launchConfetti();
+  gameScreen.classList.remove("game-hidden");
+  gameScreen.classList.add("active");
 }
 
 // 🎉 CONFETTI
